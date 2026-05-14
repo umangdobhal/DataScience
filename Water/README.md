@@ -165,41 +165,6 @@ networks, or larger basins with spatially heterogeneous rainfall forcing.
 
 ---
 
-## Project Structure
-kyushu-stgnn/
-│
-├── data/
-│   ├── raw/                    # GRDC .txt files + GeoJSON (not tracked by git)
-│   └── processed/              # Generated outputs (numpy, pkl, json)
-│       ├── daily_discharge.csv
-│       ├── adj_norm.npy
-│       ├── station_order.json
-│       ├── X_train.npy / y_train.npy
-│       ├── X_val.npy   / y_val.npy
-│       ├── X_test.npy  / y_test.npy
-│       ├── scalers.pkl
-│       ├── config.json
-│       ├── best_stgnn.pt
-│       ├── best_nograph.pt
-│       ├── pred_stgnn.npy
-│       ├── pred_nograph.npy
-│       ├── pred_persistence.npy
-│       ├── pred_climatology.npy
-│       └── y_true_test.npy
-│
-├── 01_eda.ipynb                # Discharge distributions, seasonality, missingness
-├── 02_graph.ipynb              # Adjacency matrix construction, river network map
-├── 03_dataset.ipynb            # Feature engineering, sliding windows, splits
-├── 04_model.ipynb              # STGNN architecture, forward pass verification
-├── 05_train.ipynb              # Training loop, loss curves, baseline predictions
-├── 06_evaluate.ipynb           # MAE/RMSE/R², ablation table, forecast plots
-│
-├── streamlit_app.py            # Interactive dashboard (6 pages)
-├── requirements.txt
-└── README.md
-
----
-
 ## Running the Streamlit App
 
 After running all notebooks to populate `data/processed/`:
