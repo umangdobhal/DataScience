@@ -167,9 +167,9 @@ def style_axes(fig):
 @st.cache_data
 def load_all_data():
     try:
-        with open("data/processed/config.json") as f:
+        with open("Data/processed/config.json") as f:
             config = json.load(f)
-        with open("data/processed/scalers.pkl", "rb") as f:
+        with open("Data/processed/scalers.pkl", "rb") as f:
             scalers = pickle.load(f)
 
         so = config["station_order"]
@@ -180,14 +180,14 @@ def load_all_data():
             scalers=scalers,
             station_order=so,
             scale_cols=sc,
-            pred_stgnn       = np.load("data/processed/pred_stgnn.npy"),
-            pred_nograph     = np.load("data/processed/pred_nograph.npy"),
-            pred_persistence = np.load("data/processed/pred_persistence.npy"),
-            pred_climatology = np.load("data/processed/pred_climatology.npy"),
-            y_true           = np.load("data/processed/y_true_test.npy"),
-            A_norm           = np.load("data/processed/adj_norm.npy"),
+            pred_stgnn       = np.load("Data/processed/pred_stgnn.npy"),
+            pred_nograph     = np.load("Data/processed/pred_nograph.npy"),
+            pred_persistence = np.load("Data/processed/pred_persistence.npy"),
+            pred_climatology = np.load("Data/processed/pred_climatology.npy"),
+            y_true           = np.load("Data/processed/y_true_test.npy"),
+            A_norm           = np.load("Data/processed/adj_norm.npy"),
             wide             = pd.read_csv(
-                "data/processed/daily_discharge.csv",
+                "Data/processed/daily_discharge.csv",
                 index_col="date", parse_dates=True,
             ).loc["1993-01-01":"2003-12-31", so],
         )
@@ -255,7 +255,9 @@ data = load_all_data()
 
 if "error" in data:
     st.error(f"Could not load data: {data['error']}\n\n"
-             "Run notebooks 01–05 first to generate `data/processed/`.")
+             "Run notebooks 01–05 first to generate `Data/processed/`.\n"
+             "If running on Streamlit Cloud, ensure the `Data/` folder "
+             "(with the `processed/` subfolder) is committed to the repo.")
     st.stop()
 
 station_order = data["station_order"]
