@@ -6,7 +6,13 @@ import json
 import pickle
 import datetime
 import warnings
+from pathlib import Path
 warnings.filterwarnings("ignore")
+
+# Anchor data paths to this file, not the cwd
+# (Streamlit Cloud runs from the repo root, not the app's folder)
+BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = BASE_DIR / "Data" / "processed"
 
 import numpy as np
 import pandas as pd
@@ -167,9 +173,9 @@ def style_axes(fig):
 @st.cache_data
 def load_all_data():
     try:
-        with open("Data/processed/config.json") as f:
+        with open(DATA_DIR / "config.json") as f:
             config = json.load(f)
-        with open("Data/processed/scalers.pkl", "rb") as f:
+        with open(DATA_DIR / "scalers.pkl", "rb") as f:
             scalers = pickle.load(f)
 
         so = config["station_order"]
@@ -180,14 +186,14 @@ def load_all_data():
             scalers=scalers,
             station_order=so,
             scale_cols=sc,
-            pred_stgnn       = np.load("Data/processed/pred_stgnn.npy"),
-            pred_nograph     = np.load("Data/processed/pred_nograph.npy"),
-            pred_persistence = np.load("Data/processed/pred_persistence.npy"),
-            pred_climatology = np.load("Data/processed/pred_climatology.npy"),
-            y_true           = np.load("Data/processed/y_true_test.npy"),
-            A_norm           = np.load("Data/processed/adj_norm.npy"),
+            pred_stgnn       = np.load(DATA_DIR / "pred_stgnn.npy"),
+            pred_nograph     = np.load(DATA_DIR / "pred_nograph.npy"),
+            pred_persistence = np.load(DATA_DIR / "pred_persistence.npy"),
+            pred_climatology = np.load(DATA_DIR / "pred_climatology.npy"),
+            y_true           = np.load(DATA_DIR / "y_true_test.npy"),
+            A_norm           = np.load(DATA_DIR / "adj_norm.npy"),
             wide             = pd.read_csv(
-                "Data/processed/daily_discharge.csv",
+                DATA_DIR / "daily_discharge.csv",
                 index_col="date", parse_dates=True,
             ).loc["1993-01-01":"2003-12-31", so],
         )
