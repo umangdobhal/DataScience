@@ -7,16 +7,6 @@ species classification, activity recognition, and data analytics.
 
 ## Projects
 
-### Kyushu River Discharge Forecasting with Spatiotemporal GNN
-**Stack:** PyTorch, Graph Neural Networks, Streamlit  
-Predicts daily river discharge 7 days ahead across 10 gauging stations in Kyushu, Japan,
-using a Spatiotemporal GNN (GRU encoder + GCN layer) trained on GRDC hydrological data.
-Includes a controlled ablation study isolating the contribution of river network topology,
-with an interactive Streamlit dashboard for forecast exploration.  
-**Result:** 25% lower MAE than persistence and climatology baselines.
-
----
-
 ### Bird Species Classification
 **Stack:** Python, Scikit-learn, Pandas, Matplotlib  
 Classification of bird species from body measurements and physical features.
